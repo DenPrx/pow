@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    volumes:
+      - ./internal/quotes/wisdom.txt:${QUOTES_PATH}
+    env_file:
+      - .env
+    networks:
+      - pow-network
+    restart: always
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    env_file:
+      - .env
+    networks:
+      - pow-network
+    depends_on:
+      - server
+
+networks:
+  pow-network:
+    external: false
