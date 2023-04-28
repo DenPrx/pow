@@ -50,7 +50,7 @@ func (s server) HandleConnection(conn net.Conn) {
 		return
 	}
 
-	s.Logger.Infof("sollution: %v\n", solution.Nonce)
+	s.Logger.Infof("sollution: %v", solution.Nonce)
 
 	if pow.VerifySolution(challenge, solution) {
 		quote := s.Quotes.GetQuote()
